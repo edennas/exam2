@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script type="text/javascript" ></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--css-->
+    <meta charset="utf-8" http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="countries.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <script>
+//targil 1
+    //insert to the list all the div's
+    // var list = document.getElementsByTagName("div");
+    // var id = 0;
+    // //for each element in array run the function
+    // Array.from(list).forEach(function(element) {
+    //     id++;
+    //     
+    //     
+    //    
+    // });
+
+    $(document).ready(function(){
+    var arr=[];
+
+        // getting name
+            $(function () { 
+                $.ajax({                 
+                    url: 'https://restcountries.eu/rest/v2/all?fields=name',                 
+                    type: 'GET',                 
+                    dataType: 'json',                 
+                    success: function (json) {                     
+                    $.each(json, function (i, value) {                         
+                        $('#myselect').append($('<option>').text(value.name).attr('value', value.name));    
+                                             
+                        });                 
+                    }             
+                });   
+            }); 
+
+var values = $("myselect[name='value[]']")
+.map(function(){return $(this).val();}).get();
+
+$("#all").click(function(i,el){
+    // $(function(i,el){
+        // for (var i=0; i<arr.length; i++){
+            // if (capital[i]==name[i]){
+                $.ajax({                 
+                    url: 'https://restcountries.eu/rest/v2/all?fields=capital',                 
+                    type: 'GET',                 
+                    dataType: 'json',                 
+                    success: function (json) {                     
+                    $.each(json, function (i, value) {                         
+                        $('#capital').append($('<option>').text(value.capital).attr('value', value.capital));  
+                                               
+                        });                 
+                    }             
+                });
+            // }    
+        // }     
+    }); 
+    
+    $("#all").click(function(i,el){
+            // $(function(){
+    
+    $.ajax({                 
+        url: 'https://restcountries.eu/rest/v2/all?fields=currencies',                 
+        type: 'GET',                 
+        dataType: 'json',                 
+        success: function (json) {                     
+        $.each(json, function (i, value) {                         
+            $('#currency').append($('<option>').text(value.currencies[0].symbol).attr('value', value.currencies[0].symbol));                     
+            });                 
+        }             
+    });         
+}); 
+
+// $(function(){
+    $("#all").click(function(i,el){  
+    $.ajax({                 
+        url: 'https://restcountries.eu/rest/v2/all?fields=topLevelDomain',                 
+        type: 'GET',                 
+        dataType: 'json',                 
+        success: function (json) {                     
+        $.each(json, function (i, value) {                         
+            $('#topLevelDomain').append($('<option>').text(value.topLevelDomain).attr('value', value.topLevelDomain));                     
+            });                 
+        }             
+    });         
+}); 
+
+// $(function(){
+    $("#all").click(function(i,el){
+    $.ajax({                 
+        url: 'https://restcountries.eu/rest/v2/all?fields=flag',                 
+        type: 'GET',                 
+        dataType: 'json',                 
+        success: function (json) {                     
+        $.each(json, function (i, value) {                         
+            $('#flag').append($('<option>').text(value.flag).attr('value', value.flag));                     
+            });                 
+        }             
+    });         
+}); 
+
+});
+       
+    </script>
+
+    
+<!-- $("button").click(function(){
+    $("p").append("<b>Appended text</b>");
+
+    $("input[type=text]").val(function(index,value){
+       return value. toUpperCase();
+   })
+alert($("#div1").attr("id"));
+$("#div1").attr("title","hello");
+
+$(function(){
+    $("a").attr({
+        href:"https://api.jquery.com/",
+        title: "jquery-שעורים"
+       
+    });
+  }); -->
+
+</head>
+<!-- name -->
+<!-- https://restcountries.eu/rest/v2/name/{name} -->
+<!-- https://restcountries.eu/rest/v2/all?fields=name -->
+
+<!-- capital -->
+<!-- https://restcountries.eu/rest/v2/capital/{capital} -->
+<!-- https://restcountries.eu/rest/v2/all?fields=capital -->
+
+<!-- currencies -->
+<!-- https://restcountries.eu/rest/v2/currency/{currency}
+https://restcountries.eu/rest/v2/all?fields=currencies -->
+
+<!-- to level domain
+https://restcountries.eu/rest/v2/all?fields=topLevelDomain -->
+
+
+<!-- flag -->
+<!-- https://restcountries.eu/rest/v2/all?fields=flag -->
+
+
+<body>
+    <div class="information">
+
+    
+    <h2>Rest Countries</h2>
+    <h5>Country</h5>
+    <select id="myselect">Country</select><br><br>
+
+    <button id="all" type="button" class="btn btn-info">All</button>  <br><br>
+    
+    <h5>Capital</h5>    
+    <div id ="capital"></div><br><br>
+
+    <h5>Currency</h5>
+    <div id ="currency"></div><br><br>
+
+    <h5>TopLevelDomain</h5>
+    <div id ="topLevelDomain"></div><br><br>
+
+    <h5>Flag</h5>
+    <div id ="flag"></div><br><br>
+
+        
+    
+    
+    </div>
+    </form>
+</body>
+    
+</html>
